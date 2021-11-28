@@ -12,8 +12,7 @@ O projeto está em desinvolvimento e necessica de algumas implementações para 
 - [ ] desenhar todas as etapas
 - [ ] nomear corretamente os componentes
 - [ ] desenhar solenoides de movimentação 
-- [X] criar .exe (não sei como faz, nem se é possivel mas acredito q sim)
-- [ ] otimizar .exe
+- [ ] criar .exe (não sei como faz, nem se é possivel mas acredito q sim)
 - [ ] escala automatica de desenho
 - [ ] interpretar passos "duplos" "a+b+(a-b-)"
 - [ ] desenhar passos "duplos"
