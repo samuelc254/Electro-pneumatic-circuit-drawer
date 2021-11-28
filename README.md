@@ -2,7 +2,7 @@
 Programa feito em python, para desenhar circuitos eletropneumáticos de cadeia estacionaria, a partir de diagramas escritos, como "A+B-A-B+" 
 
 ## Metas
-O projeto esta em desinvolvimento e necessica de algumas implementações para ser funcional  
+O projeto está em desinvolvimento e necessica de algumas implementações para ser funcional  
 
 - [X] desenhar componentes individuais  
 - [X] desenhar etapa individualmente
