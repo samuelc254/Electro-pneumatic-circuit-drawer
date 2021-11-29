@@ -11,9 +11,8 @@ O projeto está em desinvolvimento e necessita de algumas implementações para 
 - [X] interpretar etapas 
 - [X] nomear corretamente os componentes
 - [X] desenhar todas as etapas
-- [X] criar .exe (não sei como faz, nem se é possivel mas acredito q sim)
+- [X] criar .exe
 - [ ] desenhar solenoides de movimentação 
-- [ ] otimizar .exe 
 - [ ] interpretar intervalos de tempo "a+(5)a-"
 - [ ] desenhar intervalos de tempo 
 - [ ] escala automatica de desenho

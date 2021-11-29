@@ -1,2 +1,3 @@
-# Ambiente virtual 
 *.env
+*build
+*setup.py
