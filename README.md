@@ -11,7 +11,8 @@ O projeto está em desinvolvimento e necessita de algumas implementações para 
 - [X] interpretar etapas 
 - [X] nomear corretamente os componentes
 - [X] desenhar todas as etapas
-- [X] criar .exe
+- [X] criar .exe (ideia abandonada)
+- [ ] estudar o que é uma api e fazer funcionar via web
 - [ ] desenhar solenoides de movimentação 
 - [ ] interpretar intervalos de tempo "a+(5)a-"
 - [ ] desenhar intervalos de tempo 
