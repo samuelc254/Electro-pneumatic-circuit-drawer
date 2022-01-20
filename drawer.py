@@ -74,7 +74,7 @@ def contator(x, y, name):  # Desenho do contator
     y_passo += tamanho * 6
 
 
-def etapa(n1,n2):  # Função para desenhar cada etapa
+def cadeia_simples():  # Função para desenhar a cadeia simples
 
     global x_global
     global y_global
@@ -84,39 +84,43 @@ def etapa(n1,n2):  # Função para desenhar cada etapa
     global diagrama
     global N_etapas
 
-    if n1 != N_etapas:
-        dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
+    for i in range(N_etapas):
 
-    if n1 == 1:  
-        Na(x_passo, y_passo, "S1") # Ativa
-        if n1 != N_etapas: dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
-        Nf(x_passo, y_passo, "K"+str(N_etapas)) # Habilita
-    else:
-        Na(x_passo, y_passo, (str(N_atuador(
-            diagrama[n2-2]))) + "S" + str(A_atuador(diagrama[n2-1]))) # Ativa
-        if n1 != N_etapas: dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
-        Na(x_passo, y_passo, "K"+str(n1-1)) # Habilita
+      if i != N_etapas - 1:
+          dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
+
+      if i == 0:  
+          Na(x_passo, y_passo, "S1") # Ativa
+          if i != N_etapas - 1: dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
+          Nf(x_passo, y_passo, "K"+str(N_etapas)) # Habilita
+      else:
+          Na(x_passo, y_passo, (str(N_atuador(
+              diagrama[(i*2)-2]))) + "S" + str(A_atuador(diagrama[(i*2)-1]))) # Ativa
+          if i != N_etapas - 1: dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
+          Na(x_passo, y_passo, "K"+str(i)) # Habilita
 
 
-    contator(x_passo, y_passo, "K"+str(n1))
+      contator(x_passo, y_passo, "K"+str(i + 1))
 
-    if n1 != N_etapas:  # Sela
-        dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
+      if i != N_etapas - 1:  # Sela
+          dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
 
-        x_passo += espaçamento
-        y_passo = y_global
+          x_passo += espaçamento
+          y_passo = y_global
 
-        dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
-        Na(x_passo, y_passo, "K"+str(n1))
-        dwg.add(dwg.line((x_passo, y_passo), (x_passo - espaçamento, y_passo), stroke=cor))
-    else:
-        dwg.add(dwg.line((espaçamento, y_global), (x_passo, y_global), stroke=cor))
-        dwg.add(dwg.line((x_passo, y_passo), (espaçamento, y_passo), stroke=cor))
-    
-    x_global += espaçamento*2
-    x_passo = x_global
-    y_passo = y_global
+          dwg.add(dwg.circle((x_passo, y_passo), tamanho/4 ))
+          Na(x_passo, y_passo, "K"+str(i + 1))
+          dwg.add(dwg.line((x_passo, y_passo), (x_passo - espaçamento, y_passo), stroke=cor))
+      else: # Desenha a linha superior e a inferior
+          dwg.add(dwg.line((espaçamento, y_global), (x_passo, y_global), stroke=cor))
+          dwg.add(dwg.line((x_passo, y_passo), (espaçamento, y_passo), stroke=cor))
 
+      x_global += espaçamento*2
+      x_passo = x_global
+      y_passo = y_global
+
+
+# --------------------- parte para interpretar parenteses --------------------------
 
 def espacar():
 
@@ -169,7 +173,7 @@ def etapa_p(item):
 
 # ----------------------------Inicio----------------------------
 print("Electro-pneumatic circuit drawer v0.1.2")
-print("Programa feito para desenhar circuitos eletropneumáticos de cadeia estacionaria")
+print("script feito para desenhar circuitos eletropneumáticos de cadeia estacionaria")
 print("para desenhar insira um diagramas como: a+b-a-b+")
 print("Criado por: Samuel Oliveira Costa")
 print("Repositório do projeto: https://github.com/samuelc254/Electro-pneumatic-circuit-drawer")
@@ -178,20 +182,15 @@ print("")
 diagrama = input("Insira o diagrama: ")
 diagrama = list(str.lower(diagrama))
 
-check_p = 0
+check_p = 0 
 for caracteres in diagrama:
   if caracteres == "(" or caracteres == ")":
     check_p = 1
 
 if check_p == 0:
   N_etapas = int(len(diagrama)/2) + 1
+  cadeia_simples()
 
-  i = 1
-  j = 0
-  while i <= N_etapas:
-      etapa(i,j)
-      i += 1
-      j += 2
 else:
   check_p = 0
   N_etapas_p = 0
@@ -216,10 +215,12 @@ else:
   for caracteres in diagrama:
     etapa_p(caracteres)
 
+  print("O desenho terá: ", N_etapas_p, " etapas dentro do ()")
 
-#print("O desenho terá: ", N_etapas_p, " etapas dentro do ()")
+#print(y_global, x_global)
 print("O desenho terá: ", N_etapas, " etapas")
 
-#dwg.add(dwg.text("https://github.com/samuelc254/Electro-pneumatic-circuit-drawer", insert=(espaçamento, espaçamento * 6), fill=cor))
+dwg.add(dwg.text("https://github.com/samuelc254/Electro-pneumatic-circuit-drawer", insert=(espaçamento, espaçamento / 1.8), fill=cor))
 dwg.save()
+
 input("Circuito desenhado com sucesso!")

@@ -1,4 +1,4 @@
 *.env
-*build
-*setup.py
 *.replit
+*.vscode
+circuit.svg
