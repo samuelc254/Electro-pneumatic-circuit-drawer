@@ -1,4 +1,5 @@
 *.env
 *.replit
 *.vscode
-circuit.svg
+*__pycache__
+circuit
