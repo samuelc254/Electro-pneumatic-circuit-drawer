@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template
+from drawer import drawer
 
 app = Flask('Eletropnumatic circuit drawer')
 
@@ -14,8 +15,16 @@ def main():
 
 
 @app.route('/')
-def gerador():
+def homepage():
     return render_template('homepage.html')
+
+
+@app.route('/<sequencia>')
+def gerador(sequencia):
+    draw = drawer(sequencia)
+    draw.cadeia_simples()
+    svg = open('circuit')
+    return str(svg.read())
 
 
 if __name__ == "__main__":
