@@ -2,12 +2,14 @@ import svgwrite
 
 
 class drawer:
-    def __init__(self, sequencia: str):
+    def __init__(self, sequencia: str, debug: bool):
 
         self.sequencia = list(str.lower(sequencia))
         self.N_etapas = int((len(self.sequencia))/2) + 1
 
-        self.dwg = svgwrite.Drawing('circuit', size=('500%', '500%'))
+        self.scale = str((self.N_etapas * 100) + 300)
+        self.dwg = svgwrite.Drawing('circuit.svg',
+                                    size=(self.scale, '350'))
 
         self.cor = 'black'
         self.tamanho = 10
@@ -17,6 +19,8 @@ class drawer:
         self.x_global = self.espaçamento
         self.x_passo = self.x_global
         self.y_passo = self.y_global
+
+        self.debug = debug
 
     def N_atuador(self, letra: str) -> str:
         """
@@ -33,7 +37,9 @@ class drawer:
           Numero do sensor
         """
 
-        letras = ['a', 'b', 'c', 'd', 'e', 'f']
+        letras = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                  'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                  'y', 'z']
 
         return str(letras.index(letra) + 1)
 
@@ -240,8 +246,8 @@ class drawer:
                 self.Na(
                     self.x_passo,
                     self.y_passo,
-                    self.N_atuador(self.sequencia[(i*2)-2]) + 'S' +
-                    self.A_atuador(self.sequencia[(i*2)-1])
+                    str(self.N_atuador((self.sequencia[(i*2)-2]))) + 'S' +
+                    str(self.A_atuador((self.sequencia[(i*2)-1])))
                 )  # Ativa
 
                 if i != self.N_etapas - 1:
@@ -289,21 +295,36 @@ class drawer:
             self.x_passo = self.x_global
             self.y_passo = self.y_global
 
-        self.dwg.add(
-            self.dwg.text(
-                'https://github.com/' +
-                'samuelc254/Electro-pneumatic-circuit-drawer',
-                insert=(self.espaçamento, self.espaçamento * 6),
-                fill=self.cor
+        if self.debug:
+            self.dwg.add(
+                self.dwg.text(
+                    'https://github.com/' +
+                    'samuelc254/Electro-pneumatic-circuit-drawer',
+                    insert=(self.espaçamento, self.espaçamento * 6),
+                    fill=self.cor
+                )
             )
-        )
-
-        self.dwg.add(
-            self.dwg.text(
-                'Electro-pneumatic circuit drawer v0.1.3',
-                insert=(self.espaçamento, self.espaçamento / 1.8),
-                fill=self.cor
+            self.dwg.add(
+                self.dwg.text(
+                    'Electro-pneumatic circuit drawer v0.1.3',
+                    insert=(self.espaçamento, self.espaçamento / 1.8),
+                    fill=self.cor
+                )
             )
-        )
-
-        self.dwg.save()
+            self.dwg.add(
+                self.dwg.text(
+                    self.sequencia,
+                    insert=(self.espaçamento * 7, self.espaçamento / 1.8),
+                    fill=self.cor
+                )
+            )
+            self.dwg.saveas('images/circuit.svg', pretty=True)
+        else:
+            self.dwg.add(
+                self.dwg.text(
+                    'Electro-pneumatic circuit drawer v0.1.3',
+                    insert=(self.espaçamento, self.espaçamento / 1.8),
+                    fill=self.cor
+                )
+            )
+            self.dwg.saveas('images/circuit.svg', pretty=False)
