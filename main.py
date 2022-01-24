@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 from drawer import drawer
 
 app = Flask('Eletropnumatic circuit drawer')
@@ -19,12 +19,34 @@ def homepage():
     return render_template('homepage.html')
 
 
-@app.route('/<sequencia>')
+@app.route('/favicon.ico', methods=['GET'])
+def favicon():
+    return send_file('images/ico.ico')
+
+
+@app.route('/circuit.svg', methods=['GET'])
+def circuitsvg():
+    return send_file('images/circuit.svg')
+
+
+@app.route('/<sequencia>', methods=['GET'])
 def gerador(sequencia):
-    draw = drawer(sequencia)
+    draw = drawer(sequencia=sequencia, debug=False)
     draw.cadeia_simples()
-    svg = open('circuit')
-    return str(svg.read())
+    path = str(os.getcwd()) + '/images/circuit.svg'
+    return render_template('circuit_page.html', path=path)
+
+
+@app.route('/debug/<sequencia>', methods=['GET'])
+def debug(sequencia):
+    draw = drawer(sequencia=sequencia, debug=True)
+    draw.cadeia_simples()
+    try:
+        return send_file(
+            'images/circuit.svg',
+            as_attachment=True)
+    except Exception as error:
+        return(str(error))
 
 
 if __name__ == "__main__":
