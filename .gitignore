@@ -2,4 +2,4 @@
 *.replit
 *.vscode
 *__pycache__
-circuit
+circuit.svg
