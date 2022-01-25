@@ -3,8 +3,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from drawer import Drawer
 import utils
+from drawer import Drawer
 
 tags_metadata = [
     {
