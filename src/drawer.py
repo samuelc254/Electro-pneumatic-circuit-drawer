@@ -1,7 +1,7 @@
 import svgwrite
 
 
-class drawer:
+class Drawer:
     def __init__(self, sequencia: str, debug: bool):
 
         self.nome = sequencia

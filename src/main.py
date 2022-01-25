@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from drawer import drawer
+from drawer import Drawer
 import utils
 
 tags_metadata = [
@@ -42,7 +42,7 @@ async def favicon():
 async def gerador(sequencia: str):
     utils.apagar_antigos()
 
-    draw = drawer(sequencia=sequencia, debug=False)
+    draw = Drawer(sequencia=sequencia, debug=False)
     draw.cadeia_simples()
     try:
         file = open(f'images/{sequencia}.svg', 'rb')
