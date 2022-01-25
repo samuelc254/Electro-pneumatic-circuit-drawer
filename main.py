@@ -4,8 +4,6 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-
-sys.path.insert(1, f'{os.getcwd()}\\src')
 from drawer import Drawer
 import utils
 
