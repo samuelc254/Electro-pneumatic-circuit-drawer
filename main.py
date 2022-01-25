@@ -29,24 +29,31 @@ def circuitsvg():
     return send_file('images/circuit.svg')
 
 
+@app.route('/debug/circuit.svg', methods=['GET'])
+def dbgcircuitsvg():
+    return send_file('images/circuit.svg')
+
+
 @app.route('/<sequencia>', methods=['GET'])
 def gerador(sequencia):
     draw = drawer(sequencia=sequencia, debug=False)
     draw.cadeia_simples()
-    path = str(os.getcwd()) + '/images/circuit.svg'
-    return render_template('circuit_page.html', path=path)
+    return render_template('circuit_page.html')
 
 
 @app.route('/debug/<sequencia>', methods=['GET'])
 def debug(sequencia):
     draw = drawer(sequencia=sequencia, debug=True)
     draw.cadeia_simples()
+    return render_template('circuit_page.html')
+    '''
     try:
         return send_file(
             'images/circuit.svg',
             as_attachment=True)
     except Exception as error:
         return(str(error))
+    '''
 
 
 if __name__ == "__main__":

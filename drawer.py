@@ -16,7 +16,7 @@ class drawer:
         self.espaçamento = self.tamanho * 5
 
         self.y_global = self.espaçamento
-        self.x_global = self.espaçamento
+        self.x_global = self.espaçamento * 1.5
         self.x_passo = self.x_global
         self.y_passo = self.y_global
 
@@ -62,6 +62,30 @@ class drawer:
             return '1'
         elif sinal == '+':
             return '2'
+
+    def plug(self, text: str, y: int):
+        self.dwg.add(
+            self.dwg.circle(
+                    (self.espaçamento / 3.7, y),
+                    self.tamanho / 2.5,
+                    stroke=self.cor,
+                    fill='none'
+                )
+            )
+        self.dwg.add(
+            self.dwg.line(
+                (self.espaçamento / 3, y),
+                (self.espaçamento, y),
+                stroke=self.cor
+                )
+            )
+        self.dwg.add(
+            self.dwg.text(
+                text,
+                insert=(self.espaçamento / 2.5, y - self.espaçamento / 16),
+                fill=self.cor
+            )
+        )
 
     def Na(self, x: int, y: int, name: str) -> None:
         """
@@ -229,6 +253,9 @@ class drawer:
 
     def cadeia_simples(self):  # Função para desenhar a cadeia simples
 
+        self.plug('24V', self.espaçamento)
+        self.plug('0V', self.espaçamento * 5.2)
+
         for i in range(self.N_etapas):
 
             if i != self.N_etapas - 1:
@@ -304,13 +331,7 @@ class drawer:
                     fill=self.cor
                 )
             )
-            self.dwg.add(
-                self.dwg.text(
-                    'Electro-pneumatic circuit drawer v0.1.3',
-                    insert=(self.espaçamento, self.espaçamento / 1.8),
-                    fill=self.cor
-                )
-            )
+
             self.dwg.add(
                 self.dwg.text(
                     self.sequencia,
@@ -318,13 +339,13 @@ class drawer:
                     fill=self.cor
                 )
             )
-            self.dwg.saveas('images/circuit.svg', pretty=True)
-        else:
-            self.dwg.add(
-                self.dwg.text(
-                    'Electro-pneumatic circuit drawer v0.1.3',
-                    insert=(self.espaçamento, self.espaçamento / 1.8),
-                    fill=self.cor
-                )
+
+        self.dwg.add(
+            self.dwg.text(
+                'Electro-pneumatic circuit drawer v0.1.3',
+                insert=(self.espaçamento, self.espaçamento / 2.2),
+                fill=self.cor
             )
-            self.dwg.saveas('images/circuit.svg', pretty=False)
+        )
+
+        self.dwg.saveas('images/circuit.svg', pretty=True)
