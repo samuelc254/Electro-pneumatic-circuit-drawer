@@ -4,6 +4,7 @@ import svgwrite
 class drawer:
     def __init__(self, sequencia: str, debug: bool):
 
+        self.nome = sequencia
         self.sequencia = list(str.lower(sequencia))
         self.N_etapas = int((len(self.sequencia))/2) + 1
 
@@ -13,10 +14,10 @@ class drawer:
 
         self.cor = 'black'
         self.tamanho = 10
-        self.espaçamento = self.tamanho * 5
+        self.espacamento = self.tamanho * 5
 
-        self.y_global = self.espaçamento
-        self.x_global = self.espaçamento * 1.5
+        self.y_global = self.espacamento
+        self.x_global = self.espacamento * 1.5
         self.x_passo = self.x_global
         self.y_passo = self.y_global
 
@@ -66,7 +67,7 @@ class drawer:
     def plug(self, text: str, y: int):
         self.dwg.add(
             self.dwg.circle(
-                    (self.espaçamento / 3.7, y),
+                    (self.espacamento / 3.7, y),
                     self.tamanho / 2.5,
                     stroke=self.cor,
                     fill='none'
@@ -74,15 +75,15 @@ class drawer:
             )
         self.dwg.add(
             self.dwg.line(
-                (self.espaçamento / 3, y),
-                (self.espaçamento, y),
+                (self.espacamento / 3, y),
+                (self.espacamento, y),
                 stroke=self.cor
                 )
             )
         self.dwg.add(
             self.dwg.text(
                 text,
-                insert=(self.espaçamento / 2.5, y - self.espaçamento / 16),
+                insert=(self.espacamento / 2.5, y - self.espacamento / 16),
                 fill=self.cor
             )
         )
@@ -253,8 +254,8 @@ class drawer:
 
     def cadeia_simples(self):  # Função para desenhar a cadeia simples
 
-        self.plug('24V', self.espaçamento)
-        self.plug('0V', self.espaçamento * 5.2)
+        self.plug('24V', self.espacamento)
+        self.plug('0V', self.espacamento * 5.2)
 
         for i in range(self.N_etapas):
 
@@ -288,7 +289,7 @@ class drawer:
                 self.dwg.add(self.dwg.circle((self.x_passo, self.y_passo),
                                              self.tamanho/4))
 
-                self.x_passo += self.espaçamento
+                self.x_passo += self.espacamento
                 self.y_passo = self.y_global
 
                 self.dwg.add(self.dwg.circle((self.x_passo, self.y_passo),
@@ -297,7 +298,7 @@ class drawer:
                 self.dwg.add(
                     self.dwg.line(
                         (self.x_passo, self.y_passo),
-                        (self.x_passo - self.espaçamento, self.y_passo),
+                        (self.x_passo - self.espacamento, self.y_passo),
                         stroke=self.cor
                     )
                 )
@@ -305,7 +306,7 @@ class drawer:
             else:  # Desenha a linha superior e a inferior
                 self.dwg.add(
                     self.dwg.line(
-                        (self.espaçamento, self.y_global),
+                        (self.espacamento, self.y_global),
                         (self.x_passo, self.y_global),
                         stroke=self.cor
                     )
@@ -313,39 +314,42 @@ class drawer:
                 self.dwg.add(
                     self.dwg.line(
                         (self.x_passo, self.y_passo),
-                        (self.espaçamento, self.y_passo),
+                        (self.espacamento, self.y_passo),
                         stroke=self.cor
                     )
                 )
 
-            self.x_global += self.espaçamento*2
+            self.x_global += self.espacamento*2
             self.x_passo = self.x_global
             self.y_passo = self.y_global
 
         if self.debug:
             self.dwg.add(
                 self.dwg.text(
-                    'https://github.com/' +
-                    'samuelc254/Electro-pneumatic-circuit-drawer',
-                    insert=(self.espaçamento, self.espaçamento * 6),
-                    fill=self.cor
-                )
-            )
-
-            self.dwg.add(
-                self.dwg.text(
                     self.sequencia,
-                    insert=(self.espaçamento * 7, self.espaçamento / 1.8),
+                    insert=(self.espacamento * 7, self.espacamento / 1.8),
                     fill=self.cor
                 )
             )
 
         self.dwg.add(
             self.dwg.text(
-                'Electro-pneumatic circuit drawer v0.1.3',
-                insert=(self.espaçamento, self.espaçamento / 2.2),
+                'https://github.com/' +
+                'samuelc254/Electro-pneumatic-circuit-drawer',
+                insert=(self.espacamento, self.espacamento * 6),
                 fill=self.cor
             )
         )
 
-        self.dwg.saveas('images/circuit.svg', pretty=True)
+        self.dwg.add(
+            self.dwg.text(
+                'Electro-pneumatic circuit drawer v0.1.3',
+                insert=(self.espacamento, self.espacamento / 2.2),
+                fill=self.cor
+            )
+        )
+
+        self.dwg.saveas(
+            f'./images/{"".join(self.sequencia)}.svg',
+            pretty=True
+        )
