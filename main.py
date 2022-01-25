@@ -26,7 +26,7 @@ def main():
         allow_headers=["*"],
     )
     port = int(os.environ.get('PORT', 5000))
-    uvicorn.run(app, host='localhost', port=port, debug=True)
+    uvicorn.run(app, host='0.0.0.0', port=port, debug=True)
 
 
 @app.get('/')
