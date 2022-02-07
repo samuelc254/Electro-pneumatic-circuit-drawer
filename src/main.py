@@ -31,7 +31,7 @@ def main():
 
 @app.get('/')
 async def homepage():
-    return HTMLResponse('<p>a</p>')
+    return HTMLResponse('<p>operando!</p><p>exemplo de uso https://circuit-drawer.herokuapp.com/a+b-a-b+</p>')
 
 
 @app.get('/favicon.ico')
@@ -42,16 +42,15 @@ async def favicon():
 @app.get('/{sequencia}')
 async def gerador(sequencia: str):
     utils.apagar_antigos()
-
-    draw = Drawer(sequencia=sequencia, debug=False)
-    draw.cadeia_simples()
     try:
+        draw = Drawer(sequencia=sequencia, debug=False)
+        draw.cadeia_simples()
         file = open(f'images/{sequencia}.svg', 'rb')
         a = StreamingResponse(file)
         return a
     except Exception as error:
         print(str(error))
-        pass
+        return HTMLResponse('<p>ih meu parseiro deu merda</p>')
 
 if __name__ == "__main__":
     main()
