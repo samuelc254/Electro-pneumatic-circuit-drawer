@@ -19,5 +19,3 @@ O projeto está em desinvolvimento e necessita de algumas implementações para 
 - [ ] desenhar passos "duplos"
 - [ ] interpretar intervalos de tempo "a+(5)a-"
 - [ ] desenhar intervalos de tempo 
-
-https://www.codedrome.com/svg-library-in-c/ quero ver isso aqui
