@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Electro-pneumatic Circuit Drawer</title>
+    <link rel="icon" type="image/png" href="images/ico.png" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <div class="backdrop"></div>
+    <main class="app-shell">
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">Electro-pneumatic</p>
+                <h1>Circuit Drawer</h1>
+            </div>
+            <a class="repo-link" href="https://github.com/samuelc254/Electro-pneumatic-circuit-drawer" target="_blank"
+                rel="noreferrer">
+                Repositorio
+            </a>
+        </header>
+
+        <section class="controls" aria-label="Controles do circuito">
+            <label for="sequenceInput">Codigo da sequencia</label>
+            <div class="input-row">
+                <input id="sequenceInput" type="text" placeholder="Exemplo: A+B-A-B+" autocomplete="off" />
+                <button id="drawButton" type="button">Desenhar</button>
+            </div>
+            <p class="hint">Use o formato letra+sinal, por exemplo A+B-A-B+.</p>
+
+            <div class="tool-row">
+                <button id="zoomInButton" type="button">Zoom +</button>
+                <button id="zoomOutButton" type="button">Zoom -</button>
+                <button id="fitButton" type="button">Ajustar</button>
+                <button id="resetViewButton" type="button">Reset View</button>
+                <button id="copyLinkButton" type="button">Copiar Link</button>
+            </div>
+            <p id="statusMessage" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="canvas-section" aria-label="Desenho do circuito">
+            <canvas id="circuitCanvas"></canvas>
+        </section>
+
+        <footer class="footer-note">
+            <span>Electro-pneumatic circuit drawer v1.0 web</span>
+        </footer>
+    </main>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

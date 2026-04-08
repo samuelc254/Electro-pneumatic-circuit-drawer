@@ -1,0 +1,255 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+    --bg-1: #f8fafc;
+    --bg-2: #eef2f7;
+    --card: #ffffff;
+    --ink: #0f172a;
+    --ink-soft: #475569;
+    --line: #e2e8f0;
+    --line-strong: #cbd5e1;
+    --accent: #075985;
+    --accent-soft: rgba(7, 89, 133, 0.1);
+    --accent-2: #065f46;
+    --ok: #0f766e;
+    --error: #b91c1c;
+    --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    font-family: "Inter", "Segoe UI", sans-serif;
+    color: var(--ink);
+    background: linear-gradient(150deg, var(--bg-1), var(--bg-2));
+}
+
+body {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle at center, rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+    background-size: 24px 24px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.65), transparent 90%);
+    opacity: 0.35;
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 10% 8%, rgba(7, 89, 133, 0.07), transparent 34%),
+        radial-gradient(circle at 84% 76%, rgba(6, 95, 70, 0.06), transparent 30%);
+    pointer-events: none;
+}
+
+.app-shell {
+    position: relative;
+    max-width: 1160px;
+    margin: 28px auto;
+    padding: 20px;
+    display: grid;
+    gap: 14px;
+}
+
+.topbar,
+.controls,
+.canvas-section,
+.footer-note {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+}
+
+.eyebrow {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+}
+
+h1 {
+    margin: 2px 0 0;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    letter-spacing: -0.03em;
+}
+
+.repo-link {
+    color: var(--ink-soft);
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid var(--line);
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.controls {
+    padding: 16px 20px;
+    display: grid;
+    gap: 10px;
+}
+
+label {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.input-row,
+.tool-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+input,
+button {
+    font: inherit;
+}
+
+input {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid var(--line-strong);
+    background: #fff;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus {
+    border-color: rgba(7, 89, 133, 0.45);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+button {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #f8fafc;
+    color: var(--ink);
+    transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    border-color: var(--line-strong);
+    box-shadow: 0 8px 16px rgba(15, 23, 42, 0.05);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#drawButton {
+    background: var(--accent);
+    color: #fff;
+}
+
+#drawButton:hover {
+    background: #0c4a6e;
+    border-color: #0c4a6e;
+}
+
+#zoomInButton,
+#zoomOutButton,
+#fitButton,
+#resetViewButton {
+    background: #ffffff;
+    color: var(--ink);
+    border-color: var(--line);
+}
+
+#copyLinkButton {
+    background: rgba(6, 95, 70, 0.08);
+    color: var(--accent-2);
+    border-color: rgba(6, 95, 70, 0.14);
+}
+
+#copyLinkButton:hover {
+    background: rgba(6, 95, 70, 0.12);
+}
+
+.hint {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+}
+
+#statusMessage {
+    min-height: 1.3em;
+    margin: 0;
+    font-weight: 700;
+}
+
+#statusMessage.ok {
+    color: var(--ok);
+}
+
+#statusMessage.error {
+    color: var(--error);
+}
+
+.canvas-section {
+    height: min(68vh, 640px);
+    min-height: 360px;
+    padding: 0;
+    overflow: hidden;
+}
+
+#circuitCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #ffffff;
+}
+
+.footer-note {
+    padding: 10px 14px;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+}
+
+@media (max-width: 700px) {
+    .app-shell {
+        margin: 12px;
+        padding: 0;
+    }
+
+    .topbar,
+    .controls,
+    .canvas-section,
+    .footer-note {
+        border-radius: 16px;
+    }
+
+    .canvas-section {
+        height: 58vh;
+    }
+}
